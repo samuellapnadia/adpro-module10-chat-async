@@ -14,6 +14,8 @@ async fn main() -> Result<(), tokio_websockets::Error> {
     let stdin = tokio::io::stdin();
     let mut stdin = BufReader::new(stdin).lines();
 
+    println!("Ella's Computer - From server: Welcome to chat! Type a message");
+
     loop {
         tokio::select! {
             user_input = stdin.next_line() => {
@@ -27,7 +29,7 @@ async fn main() -> Result<(), tokio_websockets::Error> {
             server_msg = ws_stream.next() => {
                 if let Some(Ok(msg)) = server_msg {
                     if let Some(text) = msg.as_text() {
-                        println!("{text}");
+                        println!("Ella's Computer - From server: {text}");
                     }
                 } else {
                     break;

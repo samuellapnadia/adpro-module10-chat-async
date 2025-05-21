@@ -19,8 +19,9 @@ async fn handle_connection(
             msg = ws_stream.next() => {
                 if let Some(Ok(msg)) = msg {
                     if let Some(text) = msg.as_text() {
-                        println!("Received from {addr:?}: {text}");
-                        bcast_tx.send(format!("{addr:?}: {text}"))?;
+                        println!("Received from {addr}: {text}");
+                        let formatted_msg = format!("{addr}: {text}");
+                        bcast_tx.send(formatted_msg)?;
                     }
                 } else {
                     break;
